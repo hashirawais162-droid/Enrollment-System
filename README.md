@@ -56,7 +56,7 @@ class Course {
         }
     }
 
-    // ✅ FIXED: Drop student by name (not index)
+    //  FIXED: Drop student by name (not index)
     public void dropStudent(String name) {
         Iterator<Student> it = enrolledStudents.iterator();
 
@@ -90,7 +90,7 @@ class Course {
         System.out.println("Student not found.");
     }
 
-    // ✅ Improved display formatting
+    //  Improved display formatting
     public void displayStudents() {
         System.out.println("\n====================================");
         System.out.println("        COURSE DETAILS");
