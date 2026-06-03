@@ -49,22 +49,40 @@ class Course {
     }
 
     // Drop student
-    public void dropStudent() {
-        if (!enrolledStudents.isEmpty()) {
-            Student removed = enrolledStudents.remove(0);
-            System.out.println(removed.getName() + " dropped from " + courseName);
+   public void dropStudent(String name) {
+    // Try to remove from enrolled students
+    Iterator<Student> it = enrolledStudents.iterator();
 
-            // Add next from waitlist
+    while (it.hasNext()) {
+        Student s = it.next();
+        if (s.getName().equalsIgnoreCase(name)) {
+            it.remove();
+            System.out.println(name + " dropped from " + courseName);
+
+            // Move next waitlisted student into enrolled
             if (!waitlist.isEmpty()) {
                 Student next = waitlist.poll();
                 enrolledStudents.add(next);
                 System.out.println(next.getName() + " moved from waitlist to enrolled");
             }
-        } else {
-            System.out.println("No students to drop.");
+            return;
         }
     }
 
+    // If not found in enrolled, check waitlist
+    Iterator<Student> waitIt = waitlist.iterator();
+    while (waitIt.hasNext()) {
+        Student s = waitIt.next();
+        if (s.getName().equalsIgnoreCase(name)) {
+            waitIt.remove();
+            System.out.println(name + " removed from waitlist");
+            return;
+        }
+    }
+
+    // If student not found anywhere
+    System.out.println("Student not found.");
+}
 public void displayStudents() {
     System.out.println("\n=================================");
     System.out.println("        COURSE DETAILS");
