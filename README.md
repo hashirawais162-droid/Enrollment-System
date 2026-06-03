@@ -144,3 +144,50 @@ public class EnrollmentSystem {
         course.displayStudents();
     }
 }
+
+Alice enrolled in Math 101
+Bob enrolled in Math 101
+Charlie added to waitlist for Math 101
+David added to waitlist for Math 101
+
+====================================
+        COURSE DETAILS
+====================================
+Course Name : Math 101
+Capacity    : 2
+Enrolled    : 2
+Waitlisted  : 2
+
+----------- ENROLLED STUDENTS -----------
+1   | Alice               
+2   | Bob                 
+
+----------- WAITLISTED STUDENTS ----------
+1   | Charlie             
+2   | David               
+====================================
+
+
+Dropping Alice...
+
+Alice dropped from Math 101
+Charlie moved from waitlist to enrolled
+
+====================================
+        COURSE DETAILS
+====================================
+Course Name : Math 101
+Capacity    : 2
+Enrolled    : 2
+Waitlisted  : 1
+
+----------- ENROLLED STUDENTS -----------
+1   | Bob                 
+2   | Charlie             
+
+----------- WAITLISTED STUDENTS ----------
+1   | David               
+====================================
+
+
+ ----jGRASP: Operation complete.
