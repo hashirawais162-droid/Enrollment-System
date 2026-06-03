@@ -65,28 +65,37 @@ class Course {
         }
     }
 
-  public void displayStudents() {
-    System.out.println("\nCourse: " + courseName);
+public void displayStudents() {
+    System.out.println("\n=================================");
+    System.out.println("        COURSE DETAILS");
+    System.out.println("=================================");
+    System.out.println("Course: " + courseName);
+    System.out.println("Capacity: " + enrolledStudents.size() + "/" + capacity);
 
-    System.out.println("\nEnrolled Students (" + enrolledStudents.size() + "/" + capacity + "):");
+    System.out.println("\n--- Enrolled Students ---");
     if (enrolledStudents.isEmpty()) {
-        System.out.println("None");
+        System.out.println("No students enrolled.");
     } else {
+        int i = 1;
         for (Student s : enrolledStudents) {
-            System.out.println("- " + s.getName());
+            System.out.println(i + ". " + s.getName());
+            i++;
         }
     }
 
-    System.out.println("\nWaitlisted Students (" + waitlist.size() + "):");
+    System.out.println("\n--- Waitlisted Students ---");
     if (waitlist.isEmpty()) {
-        System.out.println("None");
+        System.out.println("No students in waitlist.");
     } else {
+        int i = 1;
         for (Student s : waitlist) {
-            System.out.println("- " + s.getName());
+            System.out.println(i + ". " + s.getName());
+            i++;
         }
     }
-}
 
+    System.out.println("=================================\n");
+}
 // Main class
 public class EnrollmentSystem {
     public static void main(String[] args) {
