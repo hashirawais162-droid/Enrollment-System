@@ -65,14 +65,22 @@ class Course {
         }
     }
 
-    // View students
-    public void viewStudents() {
-        System.out.println("\nEnrolled Students:");
+  public void displayStudents() {
+    System.out.println("\nCourse: " + courseName);
+
+    System.out.println("\nEnrolled Students (" + enrolledStudents.size() + "/" + capacity + "):");
+    if (enrolledStudents.isEmpty()) {
+        System.out.println("None");
+    } else {
         for (Student s : enrolledStudents) {
             System.out.println("- " + s.getName());
         }
+    }
 
-        System.out.println("\nWaitlisted Students:");
+    System.out.println("\nWaitlisted Students (" + waitlist.size() + "):");
+    if (waitlist.isEmpty()) {
+        System.out.println("None");
+    } else {
         for (Student s : waitlist) {
             System.out.println("- " + s.getName());
         }
@@ -100,6 +108,6 @@ public class EnrollmentSystem {
         System.out.println("\nDropping a student...\n");
         course.dropStudent();
 
-        course.viewStudents();
+        course.displayStudents();
     }
 }
