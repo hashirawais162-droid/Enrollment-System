@@ -8,6 +8,20 @@ The problem that we want AI to write a solution to is creating a student enrollm
 When a course is full, additional students should be placed in a waiting list. The system should automatically move students from the waitlist into the course when space becomes available.
 
 This program will use Object-Oriented Programming (OOP) and a Queue data structure to simulate this real-world scenario.
+## Reflection
+
+What did you learn in the process?
+I learned how to use queues in a real-world situation and how OOP helps organize a program into classes.
+
+What were the benefits of working with GenAI?
+It helped me generate code quickly and understand how to structure my program.
+
+What were the drawbacks?
+Sometimes the code needed changes and I had to be specific with my prompts.
+
+Any other thoughts?
+GenAI is useful but it is important to understand the code instead of just copying it.
+
 import java.util.*;
 
 import java.util.*;
