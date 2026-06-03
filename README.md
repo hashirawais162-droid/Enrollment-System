@@ -10,6 +10,8 @@ When a course is full, additional students should be placed in a waiting list. T
 This program will use Object-Oriented Programming (OOP) and a Queue data structure to simulate this real-world scenario.
 import java.util.*;
 
+import java.util.*;
+
 // Student class
 class Student {
     private String name;
@@ -19,6 +21,12 @@ class Student {
     }
 
     public String getName() {
+        return name;
+    }
+
+    // Improves printing
+    @Override
+    public String toString() {
         return name;
     }
 }
@@ -48,92 +56,90 @@ class Course {
         }
     }
 
-    // Drop student
-   public void dropStudent(String name) {
-    // Try to remove from enrolled students
-    Iterator<Student> it = enrolledStudents.iterator();
+    // ✅ FIXED: Drop student by name (not index)
+    public void dropStudent(String name) {
+        Iterator<Student> it = enrolledStudents.iterator();
 
-    while (it.hasNext()) {
-        Student s = it.next();
-        if (s.getName().equalsIgnoreCase(name)) {
-            it.remove();
-            System.out.println(name + " dropped from " + courseName);
+        while (it.hasNext()) {
+            Student s = it.next();
+            if (s.getName().equalsIgnoreCase(name)) {
+                it.remove();
+                System.out.println(name + " dropped from " + courseName);
 
-            // Move next waitlisted student into enrolled
-            if (!waitlist.isEmpty()) {
-                Student next = waitlist.poll();
-                enrolledStudents.add(next);
-                System.out.println(next.getName() + " moved from waitlist to enrolled");
+                // Move from waitlist
+                if (!waitlist.isEmpty()) {
+                    Student next = waitlist.poll();
+                    enrolledStudents.add(next);
+                    System.out.println(next.getName() + " moved from waitlist to enrolled");
+                }
+                return;
             }
-            return;
         }
+
+        // Check waitlist
+        Iterator<Student> waitIt = waitlist.iterator();
+        while (waitIt.hasNext()) {
+            Student s = waitIt.next();
+            if (s.getName().equalsIgnoreCase(name)) {
+                waitIt.remove();
+                System.out.println(name + " removed from waitlist");
+                return;
+            }
+        }
+
+        System.out.println("Student not found.");
     }
 
-    // If not found in enrolled, check waitlist
-    Iterator<Student> waitIt = waitlist.iterator();
-    while (waitIt.hasNext()) {
-        Student s = waitIt.next();
-        if (s.getName().equalsIgnoreCase(name)) {
-            waitIt.remove();
-            System.out.println(name + " removed from waitlist");
-            return;
-        }
-    }
+    // ✅ Improved display formatting
+    public void displayStudents() {
+        System.out.println("\n====================================");
+        System.out.println("        COURSE DETAILS");
+        System.out.println("====================================");
+        System.out.println("Course Name : " + courseName);
+        System.out.println("Capacity    : " + capacity);
+        System.out.println("Enrolled    : " + enrolledStudents.size());
+        System.out.println("Waitlisted  : " + waitlist.size());
 
-    // If student not found anywhere
-    System.out.println("Student not found.");
+        System.out.println("\n----------- ENROLLED STUDENTS -----------");
+        if (enrolledStudents.isEmpty()) {
+            System.out.println("No students enrolled.");
+        } else {
+            int i = 1;
+            for (Student s : enrolledStudents) {
+                System.out.printf("%-3d | %-20s\n", i++, s);
+            }
+        }
+
+        System.out.println("\n----------- WAITLISTED STUDENTS ----------");
+        if (waitlist.isEmpty()) {
+            System.out.println("No students in waitlist.");
+        } else {
+            int i = 1;
+            for (Student s : waitlist) {
+                System.out.printf("%-3d | %-20s\n", i++, s);
+            }
+        }
+
+        System.out.println("====================================\n");
+    }
 }
-public void displayStudents() {
-    System.out.println("\n=================================");
-    System.out.println("        COURSE DETAILS");
-    System.out.println("=================================");
-    System.out.println("Course: " + courseName);
-    System.out.println("Capacity: " + enrolledStudents.size() + "/" + capacity);
 
-    System.out.println("\n--- Enrolled Students ---");
-    if (enrolledStudents.isEmpty()) {
-        System.out.println("No students enrolled.");
-    } else {
-        int i = 1;
-        for (Student s : enrolledStudents) {
-            System.out.println(i + ". " + s.getName());
-            i++;
-        }
-    }
-
-    System.out.println("\n--- Waitlisted Students ---");
-    if (waitlist.isEmpty()) {
-        System.out.println("No students in waitlist.");
-    } else {
-        int i = 1;
-        for (Student s : waitlist) {
-            System.out.println(i + ". " + s.getName());
-            i++;
-        }
-    }
-
-    System.out.println("=================================\n");
-}
 // Main class
 public class EnrollmentSystem {
     public static void main(String[] args) {
 
         Course course = new Course("Math 101", 2);
 
-        Student s1 = new Student("Alice");
-        Student s2 = new Student("Bob");
-        Student s3 = new Student("Charlie");
-        Student s4 = new Student("David");
+        // Test data
+        course.enroll(new Student("Alice"));
+        course.enroll(new Student("Bob"));
+        course.enroll(new Student("Charlie"));
+        course.enroll(new Student("David"));
 
-        course.enroll(s1);
-        course.enroll(s2);
-        course.enroll(s3); // goes to waitlist
-        course.enroll(s4); // goes to waitlist
+        course.displayStudents();
 
-        course.viewStudents();
-
-        System.out.println("\nDropping a student...\n");
-        course.dropStudent();
+        System.out.println("\nDropping Alice...\n");
+        course.dropStudent("Alice");
 
         course.displayStudents();
     }
